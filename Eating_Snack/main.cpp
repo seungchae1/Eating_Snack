@@ -1,5 +1,6 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <conio.h>
 
 using namespace sf;
 using namespace std;
@@ -79,6 +80,22 @@ void Start( RenderWindow * window)
 
 void MainScreen(RenderWindow* window)
 {
+
+	int c;
+	Texture t1;
+	t1.loadFromFile("img/img2.png");
+	Sprite character = Sprite(t1);
+	character.setScale(0.12f, 0.12f);
+	character.setPosition(650, 300);
+
+	Texture t2;
+	t2.loadFromFile("img/text_box.png");
+	Sprite textBox = Sprite(t2);
+	textBox.setScale(2.4f, 1.7f);
+	textBox.setPosition(25, 610);
+
+	bool text_box = true;
+
 	while (window->isOpen())
 	{
 		Event e;
@@ -86,9 +103,30 @@ void MainScreen(RenderWindow* window)
 			if (e.type == Event::Closed) {
 				window->close();
 			}
-
 		}
+		if (Keyboard::isKeyPressed(Keyboard::Left))
+		{
+			character.move(-4,0);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			character.move(4, 0);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Up))
+		{
+			character.move(0, -4);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Down))
+		{
+			character.move(0, 4);
+		}
+
 		window->clear(Color::White);
+		window->draw(character);
+		if(text_box)window->draw(textBox);
+		if (e.type == Event::MouseButtonPressed) {
+			if (e.mouseButton.button == Mouse::Left) text_box = false;
+		}
 		window->display();
 	}
 }

@@ -144,6 +144,7 @@
   <ItemGroup>
     <Image Include="img\img2.png" />
     <Image Include="img\text1.png" />
+    <Image Include="img\text_box.png" />
     <Image Include="img\way_btn.png" />
     <Image Include="img\start_btn.png" />
     <Image Include="img\title.png" />
