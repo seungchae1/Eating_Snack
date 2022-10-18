@@ -11,6 +11,7 @@ using namespace std;
 void Start( RenderWindow* window);
 void MainScreen(RenderWindow* window);
 void RuleScreen(RenderWindow* window);
+void InStore(RenderWindow* window);
 
 int main()
 {
@@ -80,19 +81,24 @@ void Start( RenderWindow * window)
 
 void MainScreen(RenderWindow* window)
 {
-
 	int c;
 	Texture t1;
 	t1.loadFromFile("img/img2.png");
 	Sprite character = Sprite(t1);
 	character.setScale(0.12f, 0.12f);
-	character.setPosition(650, 300);
+	character.setPosition(650, 350);
 
 	Texture t2;
 	t2.loadFromFile("img/text_box.png");
 	Sprite textBox = Sprite(t2);
 	textBox.setScale(2.4f, 1.7f);
 	textBox.setPosition(25, 610);
+
+	Texture t3;
+	t3.loadFromFile("img/store.png");
+	Sprite store = Sprite(t3);
+	store.setScale(0.5f, 0.5f);
+	store.setPosition(950, -120);
 
 	bool text_box = true;
 
@@ -120,19 +126,56 @@ void MainScreen(RenderWindow* window)
 		{
 			character.move(0, 4);
 		}
+		if (character.getPosition().x >= 905 && character.getPosition().y <= 30) InStore(window);
 
 		window->clear(Color::White);
-		window->draw(character);
+		window->draw(store);
 		if(text_box)window->draw(textBox);
 		if (e.type == Event::MouseButtonPressed) {
 			if (e.mouseButton.button == Mouse::Left) text_box = false;
 		}
+		window->draw(character);
+		window->display();
+	}
+}
+
+void InStore(RenderWindow * window) 
+{
+	while (window->isOpen())
+	{
+		Event e;
+		while (window->pollEvent(e)) {
+			if (e.type == Event::Closed) {
+				window->close();
+			}
+		}
+		window->clear(Color::White);
 		window->display();
 	}
 }
 
 void RuleScreen(RenderWindow* window)
 {
+	/*
+	Text text;
+	Font font;
+	font.loadFromFile("‪C:\Windows\Fonts\gulim.ttc");
+
+	// 보여줄 문자열 세팅
+	text.setString("안녕");
+
+	text.setFont(font);
+
+	// 문자 사이즈 세팅
+	text.setCharacterSize(24);
+	// 포인트과 아니라 픽셀 단위입니다!
+
+	// 색 설정
+	text.setFillColor(sf::Color::Red);
+
+	// 텍스트 스타일 설정 
+	text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+	*/
 	Texture t1;
 	t1.loadFromFile("img/title.png");
 	Sprite title = Sprite(t1);
@@ -173,6 +216,7 @@ void RuleScreen(RenderWindow* window)
 		window->draw(title);
 		window->draw(text1);
 		window->draw(start_btn);
+		//window->draw(text);
 		window->display();
 	}
 }

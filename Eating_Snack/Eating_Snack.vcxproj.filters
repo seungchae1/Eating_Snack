@@ -38,5 +38,8 @@
     <Image Include="img\text_box.png">
       <Filter>소스 파일</Filter>
     </Image>
+    <Image Include="img\store.png">
+      <Filter>소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
