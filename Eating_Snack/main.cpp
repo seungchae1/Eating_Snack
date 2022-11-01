@@ -306,7 +306,8 @@ void Play(RenderWindow * window, int l) {
 	see[0].color = Color::Yellow;
 	see[1].color = Color::Yellow;
 	see[2].color = Color::Yellow;
-
+	
+	int cnt=0;
 	int t_posi = 640;
 	double end = 200.0;
 	while (window->isOpen()) {
@@ -320,22 +321,25 @@ void Play(RenderWindow * window, int l) {
 		clock_t start = clock() / CLOCKS_PER_SEC; //초단위 변환
 		int time = (end-start);
 		if (time <= 0) { Gameover(window); }
-		else if (time % 10 == 0) {
+		else if (time % 3 == 0) {
+			cnt++;
+			if (cnt == 1) {
+				// 시드값을 얻기 위한 random_device 생성.
+				random_device rd;
 
-			// 시드값을 얻기 위한 random_device 생성.
-			random_device rd;
+				// random_device 를 통해 난수 생성 엔진을 초기화 한다.
+				mt19937 gen(rd());
 
-			// random_device 를 통해 난수 생성 엔진을 초기화 한다.
-			mt19937 gen(rd());
+				// 0 부터 99 까지 균등하게 나타나는 난수열을 생성하기 위해 균등 분포 정의.
+				uniform_int_distribution<int> dis(200, 800);
 
-			// 0 부터 99 까지 균등하게 나타나는 난수열을 생성하기 위해 균등 분포 정의.
-			uniform_int_distribution<int> dis(0, 1000);
-
-			t_posi = (int)(dis(gen));
-			see[0].position = Vector2f(780, 370);
-			see[1].position = Vector2f(t_posi, 800);
-			see[2].position = Vector2f(t_posi + 230, 800);
+				t_posi = (int)(dis(gen));
+				see[0].position = Vector2f(780, 370);
+				see[1].position = Vector2f(t_posi, 800);
+				see[2].position = Vector2f(t_posi + 230, 800);
+			}
 		}
+		else cnt = 0;
 
 		window->clear(Color::White);
 		window->draw(see);
@@ -344,6 +348,11 @@ void Play(RenderWindow * window, int l) {
 		window->draw(character);
 		window->display();
 
+		bool a = false;
+		for(int i=character.getPosition().x+40; i<character.getPosition().x+240; i++){
+			if (i <= see[1].position.x && i <= see[2].position.x) a = true;
+		}
+		if(a) cout << "닿음" << endl;
 	}
 }
 void Gameover(RenderWindow * window) {
