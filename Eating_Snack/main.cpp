@@ -298,6 +298,12 @@ void Play(RenderWindow * window, int l) {
 	table.setScale(0.2f, 0.2f);
 	table.setPosition(650,600);
 
+	Texture t4;
+	t4.loadFromFile("img/snack_box.png");
+	Sprite Snacks = Sprite(t4);
+	Snacks.setScale(0.3f, 0.5f);
+	Snacks.setPosition(10,20);
+
 	VertexArray see(Triangles, 3);
 	see[0].position = Vector2f(780,370);
 	see[1].position = Vector2f(640,800);
@@ -307,6 +313,7 @@ void Play(RenderWindow * window, int l) {
 	see[1].color = Color::Yellow;
 	see[2].color = Color::Yellow;
 	
+	bool seeTouch;
 	int cnt=0;
 	int t_posi = 640;
 	double end = 200.0;
@@ -316,6 +323,26 @@ void Play(RenderWindow * window, int l) {
 			if (e.type == Event::Closed) {
 				window->close();
 			}
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Left))
+		{
+			character.move(-5, 0);
+			table.move(-5, 0);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			character.move(5, 0);
+			table.move(5, 0);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Up))
+		{
+			character.move(0, -5);
+			table.move(0, -5);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Down))
+		{
+			character.move(0, 5);
+			table.move(0, 5);
 		}
 
 		clock_t start = clock() / CLOCKS_PER_SEC; //초단위 변환
@@ -331,7 +358,7 @@ void Play(RenderWindow * window, int l) {
 				mt19937 gen(rd());
 
 				// 0 부터 99 까지 균등하게 나타나는 난수열을 생성하기 위해 균등 분포 정의.
-				uniform_int_distribution<int> dis(200, 800);
+				uniform_int_distribution<int> dis(400, 1000);
 
 				t_posi = (int)(dis(gen));
 				see[0].position = Vector2f(780, 370);
@@ -346,13 +373,15 @@ void Play(RenderWindow * window, int l) {
 		window->draw(teacher);
 		window->draw(table);
 		window->draw(character);
+		window->draw(Snacks);
 		window->display();
 
-		bool a = false;
-		for(int i=character.getPosition().x+40; i<character.getPosition().x+240; i++){
-			if (i <= see[1].position.x && i <= see[2].position.x) a = true;
+		seeTouch = false;
+		for(int i=character.getPosition().x+35; i<=character.getPosition().x+245; i++){
+			if (i >= see[1].position.x && i <= see[2].position.x) { seeTouch = true; break; }
 		}
-		if(a) cout << "닿음" << endl;
+		//tsest
+		if(seeTouch) cout << "닿음" << endl;
 	}
 }
 void Gameover(RenderWindow * window) {
