@@ -324,25 +324,22 @@ void Play(RenderWindow * window, int l) {
 				window->close();
 			}
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Left))
+		if (character.getPosition().x >= 400)
 		{
-			character.move(-5, 0);
-			table.move(-5, 0);
+
+			if (Keyboard::isKeyPressed(Keyboard::Left))
+			{
+				character.move(-5, 0);
+				table.move(-5, 0);
+			}
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Right))
+		if(character.getPosition().x <= 850)
 		{
-			character.move(5, 0);
-			table.move(5, 0);
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Up))
-		{
-			character.move(0, -5);
-			table.move(0, -5);
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Down))
-		{
-			character.move(0, 5);
-			table.move(0, 5);
+			if (Keyboard::isKeyPressed(Keyboard::Right))
+			{
+				character.move(5, 0);
+				table.move(5, 0);
+			}
 		}
 
 		clock_t start = clock() / CLOCKS_PER_SEC; //초단위 변환
@@ -358,7 +355,7 @@ void Play(RenderWindow * window, int l) {
 				mt19937 gen(rd());
 
 				// 0 부터 99 까지 균등하게 나타나는 난수열을 생성하기 위해 균등 분포 정의.
-				uniform_int_distribution<int> dis(400, 1000);
+				uniform_int_distribution<int> dis(400, 800);
 
 				t_posi = (int)(dis(gen));
 				see[0].position = Vector2f(780, 370);
