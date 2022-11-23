@@ -18,6 +18,7 @@ void RuleScreen(RenderWindow* window);
 void InStore(RenderWindow* window);
 void Play(RenderWindow* window, int l);
 void Gameover(RenderWindow* window);
+void GameClear(RenderWindow* window);
 
 int main()
 {
@@ -262,8 +263,8 @@ void InStore(RenderWindow * window)
 				if (e.mouseButton.button == Mouse::Left)
 				{
 					if (e.mouseButton.x >= 160 && e.mouseButton.x <= 351 && e.mouseButton.y >= 310 && e.mouseButton.y <= 499) { Play(window, 1); }
-					else if (e.mouseButton.x >= 560 && e.mouseButton.x <= 850 && e.mouseButton.y >= 318 && e.mouseButton.y <= 480) { Play(window, 1); }
-					else if (e.mouseButton.x >= 1110 && e.mouseButton.x <= 1319 && e.mouseButton.y >= 290 && e.mouseButton.y <= 529) { Play(window, 1);}
+					else if (e.mouseButton.x >= 560 && e.mouseButton.x <= 850 && e.mouseButton.y >= 318 && e.mouseButton.y <= 480) { Play(window, 2); }
+					else if (e.mouseButton.x >= 1110 && e.mouseButton.x <= 1319 && e.mouseButton.y >= 290 && e.mouseButton.y <= 529) { Play(window, 3);}
 				}
 			}
 		}
@@ -300,9 +301,27 @@ void Play(RenderWindow * window, int l) {
 
 	Texture t4;
 	t4.loadFromFile("img/snack_box.png");
-	Sprite Snacks = Sprite(t4);
-	Snacks.setScale(0.3f, 0.5f);
-	Snacks.setPosition(10,20);
+	Sprite Snack_box = Sprite(t4);
+	Snack_box.setScale(0.3f, 0.5f);
+	Snack_box.setPosition(10,20);
+
+	int snack_size = 10 + (l * 3);
+	Texture * t5 = new Texture[snack_size];
+	Sprite * snacks = new Sprite[snack_size];
+
+	for (int i = 0; i < snack_size; i++) {
+		switch (l)
+		{
+		case 1: t5[i].loadFromFile("img/candy.png"); break;
+		case 2: t5[i].loadFromFile("img/jelly.png"); break;
+		case 3: t5[i].loadFromFile("img/honey.png"); break;
+		default:
+			break;
+		}
+		snacks[i] = Sprite(t5[i]);
+		snacks[i].setPosition(Snack_box.getPosition().x+(i*27),24);
+		snacks[i].setScale(0.15f, 0.15f);
+	}
 
 	VertexArray see(Triangles, 3);
 	see[0].position = Vector2f(780,370);
@@ -313,8 +332,9 @@ void Play(RenderWindow * window, int l) {
 	see[1].color = Color::Yellow;
 	see[2].color = Color::Yellow;
 	
-	bool seeTouch;
+	bool seeTouch=false;
 	int cnt=0;
+	int eat = 0;
 	int t_posi = 640;
 	double end = 200.0;
 	while (window->isOpen()) {
@@ -323,8 +343,19 @@ void Play(RenderWindow * window, int l) {
 			if (e.type == Event::Closed) {
 				window->close();
 			}
+			if (e.type == Event::KeyPressed)
+			{
+				if (e.key.code == Keyboard::Space) {
+					eat++;
+					if (eat % 3 == 0)snack_size--;
+					if (seeTouch) {
+						Gameover(window);
+					}
+					if (snack_size <= 0)GameClear(window);
+				}
+			}
 		}
-		if (character.getPosition().x >= 400)
+		if (character.getPosition().x >= 300)
 		{
 
 			if (Keyboard::isKeyPressed(Keyboard::Left))
@@ -333,7 +364,7 @@ void Play(RenderWindow * window, int l) {
 				table.move(-5, 0);
 			}
 		}
-		if(character.getPosition().x <= 850)
+		if(character.getPosition().x <= 900)
 		{
 			if (Keyboard::isKeyPressed(Keyboard::Right))
 			{
@@ -370,7 +401,8 @@ void Play(RenderWindow * window, int l) {
 		window->draw(teacher);
 		window->draw(table);
 		window->draw(character);
-		window->draw(Snacks);
+		window->draw(Snack_box);
+		for (int i = 0; i < snack_size; i++) window->draw(snacks[i]);
 		window->display();
 
 		seeTouch = false;
@@ -378,10 +410,26 @@ void Play(RenderWindow * window, int l) {
 			if (i >= see[1].position.x && i <= see[2].position.x) { seeTouch = true; break; }
 		}
 		//tsest
-		if(seeTouch) cout << "닿음" << endl;
+		//if(seeTouch) cout << "닿음" << endl;
 	}
 }
 void Gameover(RenderWindow * window) {
+
+	while (window->isOpen()) {
+		Event e;
+		while (window->pollEvent(e)) {
+			if (e.type == Event::Closed) {
+				window->close();
+			}
+		}
+
+		window->clear(Color::White);
+		window->display();
+	}
+}
+
+
+void GameClear(RenderWindow* window) {
 
 	while (window->isOpen()) {
 		Event e;
