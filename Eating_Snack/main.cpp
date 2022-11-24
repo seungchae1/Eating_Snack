@@ -16,7 +16,7 @@ void Start( RenderWindow* window);
 void MainScreen(RenderWindow* window);
 void RuleScreen(RenderWindow* window);
 void InStore(RenderWindow* window);
-void Play(RenderWindow* window, int l);
+void Play(RenderWindow* window, int l, clock_t c);
 void Gameover(RenderWindow* window);
 void GameClear(RenderWindow* window);
 
@@ -88,26 +88,26 @@ void Start( RenderWindow * window)
 
 void RuleScreen(RenderWindow* window)
 {
-	/*
 	Text text;
 	Font font;
-	font.loadFromFile("‪C:\Windows\Fonts\gulim.ttc");
+	font.loadFromFile("resources/ITCKRIST.TTF");
 
 	// 보여줄 문자열 세팅
-	text.setString("안녕");
+	text.setString("1 . Go to the canteen and choose a snack. (Select Level)\n\n\n 2 . You can eat snacks by pressing the space bar.\n\n\n 3 . If you can't eat all the snacks during class or if you get caught by the teacher, game over");
 
 	text.setFont(font);
 
 	// 문자 사이즈 세팅
-	text.setCharacterSize(24);
+	text.setCharacterSize(26);
 	// 포인트과 아니라 픽셀 단위입니다!
 
 	// 색 설정
-	text.setFillColor(sf::Color::Red);
+	text.setFillColor(sf::Color::Black);
 
 	// 텍스트 스타일 설정
-	text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-	*/
+	//text.setStyle(sf::Text::Bold);
+	text.setPosition(180,350);
+
 	Texture t1;
 	t1.loadFromFile("img/title.png");
 	Sprite title = Sprite(t1);
@@ -143,17 +143,43 @@ void RuleScreen(RenderWindow* window)
 				}
 			}
 		}
-
 		window->clear(Color::White);
 		window->draw(title);
 		window->draw(text1);
 		window->draw(start_btn);
-		//window->draw(text);
+		window->draw(text);
 		window->display();
 	}
 }
 void MainScreen(RenderWindow* window)
 {
+
+	Text text;
+	Text text2;
+	Font font;
+	font.loadFromFile("resources/ITCKRIST.TTF");
+
+	// 보여줄 문자열 세팅
+	text.setString("Go to the canteen and choose a snack.");
+	text2.setString("Please use the rudder key.");
+
+	text.setFont(font);
+	text2.setFont(font);
+
+	// 문자 사이즈 세팅
+	text.setCharacterSize(26);
+	text2.setCharacterSize(26);
+	// 포인트과 아니라 픽셀 단위입니다!
+
+	// 색 설정
+	text.setFillColor(sf::Color::Black);
+	text2.setFillColor(sf::Color::Black);
+
+	// 텍스트 스타일 설정
+	//text.setStyle(sf::Text::Bold);
+	text.setPosition(200, 700);
+	text2.setPosition(200, 700);
+
 	Texture t1;
 	t1.loadFromFile("img/img2.png");
 	Sprite character = Sprite(t1);
@@ -172,14 +198,20 @@ void MainScreen(RenderWindow* window)
 	store.setScale(0.5f, 0.5f);
 	store.setPosition(950, -120);
 
-	bool text_box = true;
-
+	int click_cnt = 0;
 	while (window->isOpen())
 	{
 		Event e;
 		while (window->pollEvent(e)) {
 			if (e.type == Event::Closed) {
 				window->close();
+			}
+
+			if (e.type == Event::KeyPressed)
+			{
+				if (e.key.code == Keyboard::Space) {
+					click_cnt++;
+				}
 			}
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Left))
@@ -202,9 +234,13 @@ void MainScreen(RenderWindow* window)
 
 		window->clear(Color::White);
 		window->draw(store);
-		if(text_box)window->draw(textBox);
-		if (e.type == Event::MouseButtonPressed) {
-			if (e.mouseButton.button == Mouse::Left) text_box = false;
+		if (click_cnt==0) {
+			window->draw(textBox); 
+			window->draw(text);
+		}
+		if (click_cnt==1) {
+			window->draw(textBox);
+			window->draw(text2);
 		}
 		window->draw(character);
 		window->display();
@@ -262,9 +298,9 @@ void InStore(RenderWindow * window)
 			if (e.type == Event::MouseButtonPressed) {
 				if (e.mouseButton.button == Mouse::Left)
 				{
-					if (e.mouseButton.x >= 160 && e.mouseButton.x <= 351 && e.mouseButton.y >= 310 && e.mouseButton.y <= 499) { Play(window, 1); }
-					else if (e.mouseButton.x >= 560 && e.mouseButton.x <= 850 && e.mouseButton.y >= 318 && e.mouseButton.y <= 480) { Play(window, 2); }
-					else if (e.mouseButton.x >= 1110 && e.mouseButton.x <= 1319 && e.mouseButton.y >= 290 && e.mouseButton.y <= 529) { Play(window, 3);}
+					if (e.mouseButton.x >= 160 && e.mouseButton.x <= 351 && e.mouseButton.y >= 310 && e.mouseButton.y <= 499) { Play(window, 1, clock() / CLOCKS_PER_SEC); }
+					else if (e.mouseButton.x >= 560 && e.mouseButton.x <= 850 && e.mouseButton.y >= 318 && e.mouseButton.y <= 480) { Play(window, 2, clock() / CLOCKS_PER_SEC); }
+					else if (e.mouseButton.x >= 1110 && e.mouseButton.x <= 1319 && e.mouseButton.y >= 290 && e.mouseButton.y <= 529) { Play(window, 3, clock() / CLOCKS_PER_SEC);}
 				}
 			}
 		}
@@ -280,7 +316,29 @@ void InStore(RenderWindow * window)
 	}
 }
 
-void Play(RenderWindow * window, int l) {
+void Play(RenderWindow * window, int l, clock_t c) {
+
+	Text text;
+	Font font;
+	font.loadFromFile("resources/ITCKRIST.TTF");
+
+	// 보여줄 문자열 세팅
+	text.setString("200");
+
+	text.setFont(font);
+
+	// 문자 사이즈 세팅
+	text.setCharacterSize(26);
+	// 포인트과 아니라 픽셀 단위입니다!
+
+	// 색 설정
+	text.setFillColor(sf::Color::Black);
+
+	// 텍스트 스타일 설정
+	//text.setStyle(sf::Text::Bold);
+	text.setPosition(1350, 10);
+
+
 	Texture t1;
 	t1.loadFromFile("img/teacher.png");
 	Sprite teacher = Sprite(t1);
@@ -289,6 +347,8 @@ void Play(RenderWindow * window, int l) {
 
 	Texture t2;
 	t2.loadFromFile("img/img3.png");
+	Texture t2_2;
+	t2_2.loadFromFile("img/img3.png");
 	Sprite character = Sprite(t2);
 	character.setScale(0.2f, 0.2f);
 	character.setPosition(650, 600);
@@ -336,7 +396,7 @@ void Play(RenderWindow * window, int l) {
 	int cnt=0;
 	int eat = 0;
 	int t_posi = 640;
-	double end = 200.0;
+	double end = 200.0; //제한시간(초)
 	while (window->isOpen()) {
 		Event e;
 		while (window->pollEvent(e)) {
@@ -364,7 +424,7 @@ void Play(RenderWindow * window, int l) {
 				table.move(-5, 0);
 			}
 		}
-		if(character.getPosition().x <= 900)
+		if(character.getPosition().x <= 1100)
 		{
 			if (Keyboard::isKeyPressed(Keyboard::Right))
 			{
@@ -374,7 +434,8 @@ void Play(RenderWindow * window, int l) {
 		}
 
 		clock_t start = clock() / CLOCKS_PER_SEC; //초단위 변환
-		int time = (end-start);
+		int time = (end-start+c);
+		text.setString("time : "+to_string(time));
 		if (time <= 0) { Gameover(window); }
 		else if (time % 3 == 0) {
 			cnt++;
@@ -402,6 +463,7 @@ void Play(RenderWindow * window, int l) {
 		window->draw(table);
 		window->draw(character);
 		window->draw(Snack_box);
+		window->draw(text);
 		for (int i = 0; i < snack_size; i++) window->draw(snacks[i]);
 		window->display();
 
@@ -409,7 +471,7 @@ void Play(RenderWindow * window, int l) {
 		for(int i=character.getPosition().x+35; i<=character.getPosition().x+245; i++){
 			if (i >= see[1].position.x && i <= see[2].position.x) { seeTouch = true; break; }
 		}
-		//tsest
+		//test
 		//if(seeTouch) cout << "닿음" << endl;
 	}
 }
@@ -427,7 +489,6 @@ void Gameover(RenderWindow * window) {
 		window->display();
 	}
 }
-
 
 void GameClear(RenderWindow* window) {
 
