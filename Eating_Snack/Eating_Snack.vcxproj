@@ -139,16 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="InStore.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainScreen.cpp" />
+    <ClCompile Include="play.cpp" />
+    <ClCompile Include="RuleScreen.cpp" />
+    <ClCompile Include="Start.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="img\img2.png" />
-    <Image Include="img\store.png" />
-    <Image Include="img\text1.png" />
-    <Image Include="img\text_box.png" />
-    <Image Include="img\way_btn.png" />
-    <Image Include="img\start_btn.png" />
-    <Image Include="img\title.png" />
+    <ClInclude Include="gameClear.h" />
+    <ClInclude Include="gameOver.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="mainScreen.h" />
+    <ClInclude Include="play.h" />
+    <ClInclude Include="rule.h" />
+    <ClInclude Include="start.h" />
+    <ClInclude Include="store.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
