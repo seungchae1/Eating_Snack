@@ -155,6 +155,7 @@
     <ClInclude Include="mainScreen.h" />
     <ClInclude Include="play.h" />
     <ClInclude Include="rule.h" />
+    <ClInclude Include="sprite.h" />
     <ClInclude Include="start.h" />
     <ClInclude Include="store.h" />
   </ItemGroup>

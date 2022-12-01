@@ -2,33 +2,15 @@
 #include "start.h"
 #include "rule.h"
 #include "mainScreen.h"
+#include "sprite.h"
+
 
 void Start(RenderWindow* window)
 {
-
-	Texture t1;
-	t1.loadFromFile("img/img2.png");
-	Sprite character = Sprite(t1);
-	character.setScale(0.1f, 0.1f);
-	character.setPosition(ScreenSize::W / 2 - 60, 10);
-
-	Texture t2;
-	t2.loadFromFile("img/title.png");
-	Sprite title = Sprite(t2);
-	title.setScale(2.8f, 2.8f);
-	title.setPosition(250, 140);
-
-	Texture t3;
-	t3.loadFromFile("img/way_btn.png");
-	Sprite start_btn = Sprite(t3);
-	start_btn.setScale(2.5f, 2.5f);
-	start_btn.setPosition(450, ScreenSize::H - 200);
-
-	Texture t4;
-	t4.loadFromFile("img/start_btn.png");
-	Sprite way_btn = Sprite(t4);
-	way_btn.setScale(2.5f, 2.5f);
-	way_btn.setPosition(810, ScreenSize::H - 200);
+	NewSprite character= NewSprite("img/img2.png", 0.1f, 0.1f, ScreenSize::W / 2 - 60, 10);
+	NewSprite title = NewSprite("img/title.png", 2.8f, 2.8f, 250, 140);
+	NewSprite start_btn = NewSprite("img/way_btn.png", 2.5f, 2.5f, 450, ScreenSize::H - 200);
+	NewSprite way_btn = NewSprite("img/start_btn.png", 2.5f, 2.5f, 810, ScreenSize::H - 200);
 
 	while (window->isOpen())
 	{

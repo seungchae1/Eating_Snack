@@ -2,6 +2,8 @@
 #include "play.h"
 #include "gameClear.h"
 #include "gameOver.h"
+#include "sprite.h"
+
 
 void Play(RenderWindow* window, int l, clock_t c) {
 
@@ -25,49 +27,26 @@ void Play(RenderWindow* window, int l, clock_t c) {
 	//text.setStyle(sf::Text::Bold);
 	text.setPosition(1350, 10);
 
+	NewSprite teacher = NewSprite("img/teacher.png", 0.8f, 0.8f, 650, 0);
+	NewSprite character = NewSprite("img/img3.png", 0.2f, 0.2f, 650, 600);
+	NewSprite table = NewSprite("img/img5.png", 0.2f, 0.2f, 650, 600);
+	NewSprite Snack_box = NewSprite("img/snack_box.png", 0.3f, 0.5f, 10, 20);
 
-	Texture t1;
-	t1.loadFromFile("img/teacher.png");
-	Sprite teacher = Sprite(t1);
-	teacher.setPosition(650, 0);
-	teacher.setScale(0.8f, 0.8f);
-
-	Texture t2;
-	t2.loadFromFile("img/img3.png");
-	Texture t2_2;
-	t2_2.loadFromFile("img/img3.png");
-	Sprite character = Sprite(t2);
-	character.setScale(0.2f, 0.2f);
-	character.setPosition(650, 600);
-
-	Texture t3;
-	t3.loadFromFile("img/img5.png");
-	Sprite table = Sprite(t3);
-	table.setScale(0.2f, 0.2f);
-	table.setPosition(650, 600);
-
-	Texture t4;
-	t4.loadFromFile("img/snack_box.png");
-	Sprite Snack_box = Sprite(t4);
-	Snack_box.setScale(0.3f, 0.5f);
-	Snack_box.setPosition(10, 20);
-
+	//°úÀÚ ¾ç
 	int snack_size = 10 + (l * 3);
+
 	Texture* t5 = new Texture[snack_size];
-	Sprite* snacks = new Sprite[snack_size];
+	NewSprite* snacks = new NewSprite[snack_size];
 
 	for (int i = 0; i < snack_size; i++) {
 		switch (l)
 		{
-		case 1: t5[i].loadFromFile("img/candy.png"); break;
-		case 2: t5[i].loadFromFile("img/jelly.png"); break;
-		case 3: t5[i].loadFromFile("img/honey.png"); break;
+		case 1: snacks[i] = NewSprite("img/candy.png", 0.15f, 0.15f, (Snack_box.getPosition().x + (i * 27)), 24); break;
+		case 2: snacks[i] = NewSprite("img/jelly.png", 0.15f, 0.15f, (Snack_box.getPosition().x + (i * 27)), 24); break;
+		case 3: snacks[i] = NewSprite("img/honey.png", 0.15f, 0.15f, (Snack_box.getPosition().x + (i * 27)), 24); break;
 		default:
 			break;
 		}
-		snacks[i] = Sprite(t5[i]);
-		snacks[i].setPosition(Snack_box.getPosition().x + (i * 27), 24);
-		snacks[i].setScale(0.15f, 0.15f);
 	}
 
 	VertexArray see(Triangles, 3);

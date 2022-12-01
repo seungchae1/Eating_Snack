@@ -1,10 +1,10 @@
 #include "main.h"
 #include "mainScreen.h"
 #include "store.h"
+#include "sprite.h"
 
 void MainScreen(RenderWindow* window)
 {
-
 	Text text;
 	Text text2;
 	Font font;
@@ -31,23 +31,9 @@ void MainScreen(RenderWindow* window)
 	text.setPosition(200, 700);
 	text2.setPosition(200, 700);
 
-	Texture t1;
-	t1.loadFromFile("img/img2.png");
-	Sprite character = Sprite(t1);
-	character.setScale(0.12f, 0.12f);
-	character.setPosition(650, 350);
-
-	Texture t2;
-	t2.loadFromFile("img/text_box.png");
-	Sprite textBox = Sprite(t2);
-	textBox.setScale(2.4f, 1.7f);
-	textBox.setPosition(25, 610);
-
-	Texture t3;
-	t3.loadFromFile("img/store.png");
-	Sprite store = Sprite(t3);
-	store.setScale(0.5f, 0.5f);
-	store.setPosition(950, -120);
+	NewSprite character = NewSprite("img/img2.png", 0.12f, 0.12f, 650, 350);
+	NewSprite textBox = NewSprite("img/text_box.png", 2.4f, 1.7f, 25, 610);
+	NewSprite store = NewSprite("img/store.png", 0.5f, 0.5f, 950, -120);
 
 	int click_cnt = 0;
 	while (window->isOpen())

@@ -1,48 +1,18 @@
 #include "main.h"
 #include "store.h"
 #include "play.h"
+#include "sprite.h"
 
 
 void InStore(RenderWindow* window)
 {
-	Texture t1;
-	t1.loadFromFile("img/candy.png");
-	Sprite candy = Sprite(t1);
-	candy.setPosition(100, 250);
-
-	Texture t2;
-	t2.loadFromFile("img/jelly.png");
-	Sprite jelly = Sprite(t2);
-	jelly.setPosition(550, 250);
-
-	Texture t3;
-	t3.loadFromFile("img/honey.png");
-	Sprite honey = Sprite(t3);
-	honey.setPosition(1050, 250);
-
-	Texture t4;
-	t4.loadFromFile("img/board.png");
-	Sprite board = Sprite(t4);
-	board.setScale(2.95f, 1.5f);
-	board.setPosition(10, 250);
-
-	Texture t5;
-	t5.loadFromFile("img/lv1_2.png");
-	Sprite lv1 = Sprite(t5);
-	lv1.setScale(0.25f, 0.25f);
-	lv1.setPosition(170, 210);
-
-	Texture t6;
-	t6.loadFromFile("img/lv2.png");
-	Sprite lv2 = Sprite(t6);
-	lv2.setScale(0.25f, 0.25f);
-	lv2.setPosition(670, 210);
-
-	Texture t7;
-	t7.loadFromFile("img/lv3.png");
-	Sprite lv3 = Sprite(t7);
-	lv3.setScale(0.25f, 0.25f);
-	lv3.setPosition(1170, 210);
+	NewSprite candy = NewSprite("img/candy.png",1,1, 100, 250);
+	NewSprite jelly = NewSprite("img/jelly.png",1,1, 550, 250);
+	NewSprite honey = NewSprite("img/honey.png",1,1, 1050, 250);
+	NewSprite board = NewSprite("img/board.png", 2.95f, 1.5f, 10, 250);
+	NewSprite lv1 = NewSprite("img/lv1.png", 0.25f, 0.25f, 170, 210);
+	NewSprite lv2 = NewSprite("img/lv2.png", 0.25f, 0.25f, 670, 210);
+	NewSprite lv3 = NewSprite("img/lv3.png", 0.25f, 0.25f, 1170, 210);
 
 	while (window->isOpen())
 	{
