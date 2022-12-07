@@ -5,6 +5,7 @@
 #include "sprite.h"
 
 void Play(RenderWindow* window, int l, clock_t c) {
+
 	Text text;
 	Font font;
 	font.loadFromFile("resources/ITCKRIST.TTF");
@@ -79,9 +80,12 @@ void Play(RenderWindow* window, int l, clock_t c) {
 					}
 					if (snack_size <= 0)GameClear(window); // 과자를 다먹으면 gameclear
 				}
+				else {
+					if(character.getImg()=="img/img4.png")character.changeP("img/img3.png");
+				}
 			}
 		}
-		if (character.getPosition().x >= 300) //캐릭터 움직임 제한
+		if (character.getPosition().x >= 250) //캐릭터 움직임 제한
 		{
 
 			if (Keyboard::isKeyPressed(Keyboard::Left))
@@ -90,7 +94,7 @@ void Play(RenderWindow* window, int l, clock_t c) {
 				table.move(-5, 0);
 			}
 		}
-		if (character.getPosition().x <= 1100)
+		if (character.getPosition().x <= 1000)
 		{
 			if (Keyboard::isKeyPressed(Keyboard::Right)) //캐릭터 움직임 제한
 			{

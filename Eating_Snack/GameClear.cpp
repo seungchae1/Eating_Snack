@@ -19,7 +19,7 @@ void GameClear(RenderWindow* window) {
 		if (e.type == Event::MouseButtonPressed) {
 			if (e.mouseButton.button == Mouse::Left)
 			{
-				if (e.mouseButton.x >= 619 && e.mouseButton.x <= 858 && e.mouseButton.y >= 750 && e.mouseButton.y <= 861) {
+				if (e.mouseButton.x >= 619 && e.mouseButton.x <= 858 && e.mouseButton.y >= 700 && e.mouseButton.y <= 811) {
 					InStore(window);
 				}
 			}
