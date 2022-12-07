@@ -5,7 +5,12 @@
 
 void GameClear(RenderWindow* window) {
 
-	NewSprite title = NewSprite("img/clear_title.png", 1.8, 1.8, 300, 50);
+	SoundBuffer buffer;
+	buffer.loadFromFile("resources\\gameClear.wav"); //¹è°æÀ½¾Ç
+	Sound sound(buffer);
+	sound.play();
+
+	NewSprite title = NewSprite("img/clear_title.png", 1.8, 1.8, 250, -100);
 	NewSprite btn = NewSprite("img/restart.png", 0.6, 0.6, 600, ScreenSize::H - 200);
 
 	while (window->isOpen()) {
@@ -20,6 +25,7 @@ void GameClear(RenderWindow* window) {
 			if (e.mouseButton.button == Mouse::Left)
 			{
 				if (e.mouseButton.x >= 619 && e.mouseButton.x <= 858 && e.mouseButton.y >= 700 && e.mouseButton.y <= 811) {
+					sound.stop();
 					InStore(window);
 				}
 			}

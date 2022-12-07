@@ -24,7 +24,7 @@ void InStore(RenderWindow* window)
 			if (e.type == Event::MouseButtonPressed) {
 				if (e.mouseButton.button == Mouse::Left)
 				{
-					if (e.mouseButton.x >= 160 && e.mouseButton.x <= 351 && e.mouseButton.y >= 310 && e.mouseButton.y <= 499) { Play(window, 1, clock() / CLOCKS_PER_SEC); }
+					if (e.mouseButton.x >= 160 && e.mouseButton.x <= 351 && e.mouseButton.y >= 310 && e.mouseButton.y <= 499) {Play(window, 1, clock() / CLOCKS_PER_SEC); }
 					else if (e.mouseButton.x >= 560 && e.mouseButton.x <= 850 && e.mouseButton.y >= 318 && e.mouseButton.y <= 480) { Play(window, 2, clock() / CLOCKS_PER_SEC); }
 					else if (e.mouseButton.x >= 1110 && e.mouseButton.x <= 1319 && e.mouseButton.y >= 290 && e.mouseButton.y <= 529) { Play(window, 3, clock() / CLOCKS_PER_SEC); }
 				}

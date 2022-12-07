@@ -1,3 +1,3 @@
 #pragma once
 
-void InStore(RenderWindow* window);
+void InStore(RenderWindow* windows);

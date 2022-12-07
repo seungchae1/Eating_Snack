@@ -3,23 +3,16 @@
 #include "gameClear.h"
 #include "gameOver.h"
 #include "sprite.h"
-#include <SFML/Audio.hpp> 
 
 void Play(RenderWindow* window, int l, clock_t c) {
+	SoundBuffer b;
+	b.loadFromFile("resources\\eating.wav"); //효과음
+	Sound s(b);
 
-	sf::SoundBuffer buffer;
-
-	buffer.loadFromFile("resources\\play_bgm.wav");
-
-	sf::Sound sound(buffer);
-
-	sound.play();   //오디오 재생
-
-	//sound.setPlayingOffset(seconds(2.f)); //2초부터 재생
-
-	//sound.pause(); //일시 정지
-
-	//sound.stop();   //재생 정지
+	SoundBuffer buffer;
+	buffer.loadFromFile("resources\\play_bgm.wav"); //배경음악
+	Sound sound(buffer);
+	sound.play();
 
 	Text text;
 	Font font;
@@ -76,7 +69,7 @@ void Play(RenderWindow* window, int l, clock_t c) {
 	int cnt = 0;
 	int eat = 0;
 	int t_posi = 640;
-	double end = 200.0; //제한시간(초)
+	double end = 60.0; //제한시간(초)
 	while (window->isOpen()) {
 		Event e;
 		while (window->pollEvent(e)) {
@@ -88,19 +81,22 @@ void Play(RenderWindow* window, int l, clock_t c) {
 				if (e.key.code == Keyboard::Space) {
 					eat++; // 먹는 회수 세기
 					character.changeP("img/img4.png");
-
+					s.play();
 					if (eat % 3 == 0)snack_size--; //세번 누르면 과자 하나씩 -
 					if (seeTouch) { // 시선이 닿아있을 때 먹으면 gameover
 						sound.stop();
+						s.stop();
 						Gameover(window);
 					}
 					if (snack_size <= 0) {
 						sound.stop();
+						s.stop();
 						GameClear(window); // 과자를 다먹으면 gameclear
 					}
 				}
 				else {
 					if(character.getImg()=="img/img4.png")character.changeP("img/img3.png");
+					s.stop();
 				}
 			}
 		}
