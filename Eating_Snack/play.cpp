@@ -3,8 +3,23 @@
 #include "gameClear.h"
 #include "gameOver.h"
 #include "sprite.h"
+#include <SFML/Audio.hpp> 
 
 void Play(RenderWindow* window, int l, clock_t c) {
+
+	sf::SoundBuffer buffer;
+
+	buffer.loadFromFile("resources\\play_bgm.wav");
+
+	sf::Sound sound(buffer);
+
+	sound.play();   //오디오 재생
+
+	//sound.setPlayingOffset(seconds(2.f)); //2초부터 재생
+
+	//sound.pause(); //일시 정지
+
+	//sound.stop();   //재생 정지
 
 	Text text;
 	Font font;
@@ -76,9 +91,13 @@ void Play(RenderWindow* window, int l, clock_t c) {
 
 					if (eat % 3 == 0)snack_size--; //세번 누르면 과자 하나씩 -
 					if (seeTouch) { // 시선이 닿아있을 때 먹으면 gameover
+						sound.stop();
 						Gameover(window);
 					}
-					if (snack_size <= 0)GameClear(window); // 과자를 다먹으면 gameclear
+					if (snack_size <= 0) {
+						sound.stop();
+						GameClear(window); // 과자를 다먹으면 gameclear
+					}
 				}
 				else {
 					if(character.getImg()=="img/img4.png")character.changeP("img/img3.png");
